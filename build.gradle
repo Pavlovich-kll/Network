@@ -1,0 +1,49 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.3'
+	id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'otus.pet'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '17'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'io.springfox:springfox-boot-starter:3.0.0'
+
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
+	runtimeOnly 'org.postgresql:postgresql'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// JWT
+	implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2'
+	runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.11.2'
+	implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.1'
+
+	implementation 'org.mapstruct:mapstruct:1.4.2.Final'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

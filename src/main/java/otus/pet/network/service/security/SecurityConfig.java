@@ -30,14 +30,6 @@ public class SecurityConfig {
 
     private final JwtAuthorizationFilter authFilter;
 
-//    @Bean
-//    public AuthenticationManager authenticationManager(HttpSecurity http, DelegatingPasswordEncoder passwordEncoder)
-//            throws Exception {
-//        AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
-//        authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
-//        return authenticationManagerBuilder.build();
-//    }
-
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();

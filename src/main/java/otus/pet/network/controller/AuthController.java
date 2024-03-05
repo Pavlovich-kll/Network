@@ -3,22 +3,15 @@ package otus.pet.network.controller;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.ErrorResponse;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import otus.pet.network.dto.UserRegistrationRequestDto;
 import otus.pet.network.dto.login.LoginRequestDto;
 import otus.pet.network.dto.login.LoginResponseDto;
-import otus.pet.network.service.UserRegistrationService;
 
-@RestController
-@RequestMapping("/auth")
-@RequiredArgsConstructor
-public class AuthController {
-
-    private final UserRegistrationService registrationService;
+public interface AuthController {
 
     @ApiOperation(value = "Авторизация")
     @ApiResponses(value = {
@@ -29,10 +22,7 @@ public class AuthController {
             @ApiResponse(code = 503, message = "Сервис временно недоступен", response = ErrorResponse.class)
     })
     @PostMapping(value = "/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequestDto loginRequest) {
-        String token = registrationService.login(loginRequest);
-        return ResponseEntity.ok(new LoginResponseDto(loginRequest.getEmail(), token));
-    }
+    ResponseEntity<?> login(@RequestBody LoginRequestDto loginRequest);
 
     @ApiOperation(value = "Аутентификация")
     @ApiResponses(value = {
@@ -43,8 +33,5 @@ public class AuthController {
             @ApiResponse(code = 503, message = "Сервис временно недоступен")
     })
     @PostMapping("/user/register")
-    public ResponseEntity<?> register(@RequestBody UserRegistrationRequestDto registrationRequest) {
-        registrationService.register(registrationRequest);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
-    }
+    ResponseEntity<?> register(@RequestBody UserRegistrationRequestDto registrationRequest);
 }

@@ -10,6 +10,8 @@ services:
       - "8082:8081"
     depends_on:
       - postgresql
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/network-db
 
   postgresql:
     image: 'postgres:latest'

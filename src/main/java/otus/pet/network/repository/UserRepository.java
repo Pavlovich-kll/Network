@@ -3,6 +3,7 @@ package otus.pet.network.repository;
 import org.springframework.stereotype.Repository;
 import otus.pet.network.domain.User;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -37,4 +38,14 @@ public interface UserRepository {
      * @return - boolean
      */
     boolean existsByEmail(String email);
+
+    /**
+     * Поиск анкет по части имени и фамилии
+     * @param firstNamePrefix - префикс имени
+     * @param secondNamePrefix - префикс фамилии
+     * @return List<User> - список анкет пользователей
+     */
+    List<User> findByFirstAndSecondNamesPrefix(String firstNamePrefix, String secondNamePrefix);
+
+    void fulfillTableFromCsv(String firstName, String lastName, String birthDate, String city);
 }

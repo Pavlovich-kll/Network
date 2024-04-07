@@ -8,6 +8,8 @@ import otus.pet.network.controller.UserController;
 import otus.pet.network.dto.UserDto;
 import otus.pet.network.service.UserService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/user")
 @RequiredArgsConstructor
@@ -23,10 +25,9 @@ public class UserControllerImpl implements UserController {
     }
 
     @Override
-    public ResponseEntity<?> searchUsers(String firstName,
+    public ResponseEntity<List<UserDto>> searchUsers(String firstName,
                                          String lastName) {
-        // Ваша логика поиска пользователей здесь
-        // Пример: возвращаем список пользователей, удовлетворяющих условиям поиска
-        return ResponseEntity.ok(new UserDto[0]);
+        var userList = userService.searchUsersByFirstAndSecondNamesPrefix(firstName, lastName);
+        return ResponseEntity.ok(userList);
     }
 }
